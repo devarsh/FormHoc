@@ -16,7 +16,7 @@ const HocForm = (config) => (WrappedComponent) => {
           name:field,
           onChange : this.onChange,
           value : ''
-          
+
         }
       })
       return {fields:myObj}
@@ -53,8 +53,7 @@ const ChildComponent = (props) => {
 }
 
 export const DemoComponent = HocForm({
-  fields:['firstname','lastname','age']
-  validate : 
+  fields:['firstname','lastname','age','address.add1','address.add2','address.pincode']
 })(ChildComponent)
 
 
@@ -62,7 +61,7 @@ export const DemoComponent = HocForm({
 /*
 
 HocForm({
-  fields:['firstname','lastname','age']  
+  fields:['firstname','lastname','age','person.name','person.']  
 })(childComponent)
 
 */
