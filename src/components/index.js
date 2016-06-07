@@ -1,4 +1,5 @@
 import React,{Component} from 'react'
+import {setField} from 'utils/index.js'
 
 const HocForm = (config) => (WrappedComponent) => {
   return class WrapperComponent extends Component {
@@ -12,22 +13,16 @@ const HocForm = (config) => (WrappedComponent) => {
       let myfields = fields
       let myObj = {}
       myfields.forEach((field)=> {
-        myObj[field] = {
-          name:field,
-          onChange : this.onChange,
-          value : ''
-
-        }
+        setField(myObj,field,{onChange:this.onChange,value:''})
       })
       return {fields:myObj}
     }
-    onChange(evt) {
-      
+    onChange(evt) {   
       let value = evt.target.value
       let name = evt.target.name
       let temp = this.state.fields
-      let newFields = {...temp,[name]:{...temp[name],value:value}}
-      this.setState({fields:newFields})
+      setField(temp,name,{value})
+      this.setState({fields:temp})
     }
     submitFn(evt) {
       evt.preventDefault()
@@ -43,11 +38,12 @@ const HocForm = (config) => (WrappedComponent) => {
 }
 
 const ChildComponent = (props) => {
-  const {lastname,firstname,age,submit} = props
+  const {lastname,firstname,age,address,submit} = props
   return (<form>
   FirstName : <input type="text" {...firstname} />
   LastName  : <input type="text" {...lastname} />
   Age : <input type="text" {...age} />
+  <Address {...address} />
   <button onClick={submit}>SubmitForm</button>  
   </form>)
 }
@@ -56,7 +52,15 @@ export const DemoComponent = HocForm({
   fields:['firstname','lastname','age','address.add1','address.add2','address.pincode']
 })(ChildComponent)
 
-
+const Address = (props) => {
+  const { add1,add2,pincode } = props
+  return (
+    <div>
+    Add1 : <input type="text" {...add1} />
+    Add2 : <input type="text" {...add2} />
+    Pincode : <input type="text" {...pincode} />
+    </div>)
+}
 
 /*
 

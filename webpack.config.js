@@ -16,6 +16,7 @@ module.exports = {
       		components: `${ srcPath }/components/`,
      		consts :    `${ srcPath }/consts/`,
       		reducer: 	`${ srcPath }/reducer/`,
+      		utils  :    `${ srcPath }/utils/`,
       	},
       	modulesDirectories: ["src", "node_modules"]
     },
